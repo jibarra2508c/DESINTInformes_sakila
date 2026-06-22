@@ -1,0 +1,98 @@
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
+<jasperReport name="Exercisi11" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f683b501-7892-443a-a04f-288cae3eb844">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mariadb remote"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<query language="sql"><![CDATA[SELECT 
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    c.email,
+    r.rental_date,
+    f.title AS film_title
+FROM customer c
+LEFT JOIN rental r ON c.customer_id = r.customer_id
+LEFT JOIN inventory i ON r.inventory_id = i.inventory_id
+LEFT JOIN film f ON i.film_id = f.film_id 
+ORDER BY c.customer_id, r.rental_date DESC]]></query>
+	<field name="customer_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="customer_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="customer_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="first_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="first_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="first_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="last_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="last_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="last_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="rental_date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="rental_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="rental_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rental"/>
+	</field>
+	<field name="film_title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="title"/>
+		<property name="com.jaspersoft.studio.field.label" value="film_title"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="film"/>
+	</field>
+	<variable name="v_total_lloguers" resetType="Group" calculation="Count" resetGroup="CustomerGroup" class="java.lang.Integer">
+		<expression><![CDATA[$F{film_title}]]></expression>
+	</variable>
+	<group name="CustomerGroup">
+		<expression><![CDATA[$F{customer_id}]]></expression>
+		<groupHeader>
+			<band height="30">
+				<element kind="textField" uuid="f02808f3-8029-487d-8279-82469da552f3" x="0" y="0" width="150" height="30" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{first_name}.toUpperCase() + " " + $F{last_name}.toUpperCase()]]></expression>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</element>
+				<element kind="textField" uuid="39e2cb04-aab3-4a9c-8752-eac0dc610d06" x="150" y="0" width="130" height="30" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{email}]]></expression>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="45">
+				<element kind="textField" uuid="273e27bf-6bee-42b9-9cfe-5b56c8ee4865" x="455" y="0" width="100" height="30" evaluationTime="Group" evaluationGroup="CustomerGroup" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$V{v_total_lloguers}]]></expression>
+					<box>
+						<bottomPen lineWidth="0.0"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="b4099d8a-dec3-4380-8863-e20989eed5b6" x="310" y="0" width="145" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA["Total lloguers d'aquest soci: "]]></text>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<detail>
+		<band height="30">
+			<element kind="textField" uuid="1ee9606b-bbae-4510-bf93-47f8d427606f" x="0" y="0" width="178" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{rental_date}]]></expression>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<element kind="textField" uuid="d1154202-6ee4-4e55-a774-7eb4f45e6026" x="178" y="0" width="377" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{film_title} == null ? "Sense lloguers registrats" : $F{film_title}]]></expression>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+</jasperReport>
