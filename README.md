@@ -1,6 +1,6 @@
 # Informes Sakila con JasperReports
 
-Aplicación Java que genera un **informe PDF** a partir de la base de datos de ejemplo **Sakila**, usando **JasperReports**. Práctica de la asignatura de *Desarrollo de Interfaces / Sistemas de Información* (DAM).
+Aplicación Java que genera un **informe PDF** a partir de la base de datos de ejemplo **Sakila**, usando **JasperReports**.
 
 El programa se conecta a una base de datos **MariaDB**, compila una plantilla de informe `.jrxml`, la rellena con los datos de la consulta y exporta el resultado a un fichero PDF.
 
